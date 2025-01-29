@@ -1,3 +1,9 @@
+const INPUT_TYPES = {
+    TEXT: "text",
+    EMAIL: "email",
+    PASSWORD: "password"
+};
+
 class Form {
     constructor(name) {
         this.form = document.createElement("form");
@@ -9,7 +15,7 @@ class Form {
         this.inputs = [];
     }
 
-    addInput(name, placeholder = "", type = "text", required = false, validationType = null) {
+    addInput(name, placeholder = "", type = INPUT_TYPES.TEXT, required = false, validationType = null) {
         const label = document.createElement("label");
         label.textContent = name;
 
@@ -48,7 +54,7 @@ class Form {
             if (input.required && !input.value) {
                 isValid = false;
                 alert(`${input.name} is required!`);
-            } else if (input.validationType === "email" && !this.isValidEmail(input.value)) {
+            } else if (input.validationType === INPUT_TYPES.EMAIL && !this.isValidEmail(input.value)) {
                 isValid = false;
                 alert(`${input.name} must be a valid email address!`);
             }
@@ -61,6 +67,7 @@ class Form {
         const emailPattern = /\S+@\S+\.\S+/;
         return emailPattern.test(email);
     }
+
     submit() {
         if (this.validate()) {
             alert(`${this.formName.textContent} submitted successfully!`);
@@ -75,8 +82,8 @@ class Form {
 
 let form = new Form("Form");
 
-form.addInput("Login", "Enter your login", "text", true);
-form.addInput("Email", "Enter your email", "email", true, "email");
-form.addInput("Password", "Enter your password", "password", true);
+form.addInput("Login", "Enter your login", INPUT_TYPES.TEXT, true);
+form.addInput("Email", "Enter your email", INPUT_TYPES.EMAIL, true, INPUT_TYPES.EMAIL);
+form.addInput("Password", "Enter your password", INPUT_TYPES.PASSWORD, true);
 
 form.addButton("Submit");

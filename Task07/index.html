@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 7</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script defer src="script.js"></script>
+</head>
+<body>
+<form action="" method="post">
+    <div>
+        <label for="Login">Логін:</label>
+        <input type="text" name="Login" id="Login">
+    </div>
+    <div>
+        <label for="Password">Пароль:</label>
+        <input type="password" name="Password" id="Password">
+    </div>
+    <div>
+        <label for="ConfirmPassword">Повторіть пароль:</label>
+        <input type="password" name="ConfirmPassword" id="ConfirmPassword">
+    </div>
+    <div>
+        <label for="Male">Стать:</label>
+        <label><input type="radio" name="Gender" id="Male" value="male">чоловік</label>
+        <label><input type="radio" name="Gender" id="Female" value="female">жінка</label>
+    </div>
+    <div>
+        <label for="cities-list">Вкажіть місто:</label>
+        <select name="cities-list" id="cities-list" multiple="multiple">
+            <option value="Zhytomyr" selected="selected">Житомир</option>
+            <option value="Kyiv">Київ</option>
+            <option value="Lviv">Львів</option>
+        </select>
+    </div>
+    <div><label  for="football">Інтереси:</label>
+        <label><input type="checkbox" name="hobbies[]" id="football" value="football">футбол</label>
+        <label><input type="checkbox" name="hobbies[]" value="chess">шахи</label>
+        <label><input type="checkbox" name="hobbies[]" value="music">музика</label>
+    </div>
+    <div>
+        <label></label>
+        <input type="reset" name="reset" value="Очистити"><input type="submit" name="submit" value="Відправити">
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,63 @@
+.notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    z-index: 10;
+}
+
+.notification {
+    position: relative;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    min-width: 200px;
+    opacity: 1;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.notification.error {
+    background-color: #f44336;
+}
+
+.notification.info {
+    background-color: #2196F3;
+}
+
+.notification.warning {
+    background-color: #ff9800;
+}
+
+.notification.hide {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buttons-container {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+}
+
+.button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

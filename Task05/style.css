@@ -1,0 +1,31 @@
+.tab-button {
+    padding: 5px 5px;
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 45px;
+}
+
+.container {
+    width: 300px;
+}
+
+.tabs-panel {
+    height: 20%;
+}
+
+.tab-button.active {
+    background-color: #ccc;
+}
+
+.tab-content {
+    display: none;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tab-content.active {
+    display: block;
+}

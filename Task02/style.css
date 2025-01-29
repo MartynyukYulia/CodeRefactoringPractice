@@ -1,0 +1,58 @@
+.block {
+    margin: 20px;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.horizontalPanel {
+    width: 202px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.verticalPanel {
+    width: 44px;
+    height: 202px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prevBtn, .nextBtn {
+    width: 35px;
+    height: 30px;
+    border: 1px solid black;
+    padding: 3px;
+}
+
+.container {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid black;
+}
+
+.wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.slide {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

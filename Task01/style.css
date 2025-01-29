@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+}
+
+.modalWindow {
+    width: 300px;
+    height: 300px;
+    border: 2px solid black;
+    position: absolute;
+    left: calc(50% - 150px);
+    top: calc(50vh - 150px);
+}
+
+.modalHeader {
+    width: calc(100% + 2px);
+    border: 1px solid black;
+    height: 24px;
+    background-color: lightgrey;
+    top: -1px;
+    left: -1px;
+    position: relative;
+}
+
+.modalCloseBtn {
+    height: 15px;
+    margin: 3px;
+    padding: 0 2px;
+    position: relative;
+    left: 93%;
+    background-color: #ef4a4a;
+    border: 1px solid darkred;
+    color: black;
+}
+
+.modalCloseBtn:hover {
+    background-color: red;
+    color: white;
+}
+
+.modalContent {
+    margin: 15px;
+    padding: 10px;
+    background-color: lightcyan;
+    max-height: 245px;
+    overflow-y: auto;
+    word-wrap: break-word;
+}
+
+.open {
+    margin: 10px;
+}

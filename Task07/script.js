@@ -1,53 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
 
-    // Зберігаємо дані у localStorage
-    form.addEventListener('input', (event) => {
-        const input = event.target;
-
-        if (input.type === 'checkbox') {
+    const storageHandlers = {
+        checkbox: (input) => {
             const checkboxes = form.querySelectorAll(`input[name="${input.name}"]`);
             const selectedValues = Array.from(checkboxes)
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
-            localStorage.setItem(input.name, JSON.stringify(selectedValues));
-        }
-        else if (input.type === 'radio'  && input.checked) {
-            localStorage.setItem(input.name, input.value);
-        }
-        else if (input.tagName === 'SELECT') {
-            const selectedValues = Array.from(input.selectedOptions)
-                .map(option => option.value);
-            localStorage.setItem(input.name, JSON.stringify(selectedValues));
-        }
-        else {
-            localStorage.setItem(input.name, input.value);
+            return JSON.stringify(selectedValues);
+        },
+        radio: (input) => input.checked ? input.value : null,
+        SELECT: (input) => JSON.stringify(Array.from(input.selectedOptions).map(option => option.value)),
+        default: (input) => input.value
+    };
+
+    form.addEventListener('input', (event) => {
+        const input = event.target;
+        const handler = storageHandlers[input.type] || storageHandlers[input.tagName] || storageHandlers.default;
+        const value = handler(input);
+        if (value !== null) {
+            localStorage.setItem(input.name, value);
         }
     });
 
-    // Відновлюємо дані з localStorage
+    const restoreHandlers = {
+        checkbox: (input, savedValue) => {
+            const selectedValues = JSON.parse(savedValue);
+            input.checked = selectedValues.includes(input.value);
+        },
+        radio: (input, savedValue) => {
+            if (savedValue === input.value) {
+                input.checked = true;
+            }
+        },
+        SELECT: (input, savedValue) => {
+            const selectedValues = JSON.parse(savedValue);
+            Array.from(input.options).forEach(option => {
+                option.selected = selectedValues.includes(option.value);
+            });
+        },
+        default: (input, savedValue) => {
+            input.value = savedValue;
+        }
+    };
+
     Array.from(form.elements).forEach(input => {
-        let savedValue = localStorage.getItem(input.name);
+        const savedValue = localStorage.getItem(input.name);
         if (savedValue !== null) {
-            if (input.type === 'checkbox') {
-                const selectedValues = JSON.parse(savedValue);
-                input.checked = selectedValues.includes(input.value);
-            }
-            else if (input.type === 'radio') {
-                const savedValue = localStorage.getItem(input.name);
-                if (savedValue === input.value) {
-                    input.checked = true;
-                }
-            }
-            else if (input.tagName === 'SELECT') {
-                const selectedValues = JSON.parse(savedValue);
-                Array.from(input.options).forEach(option => {
-                    option.selected = selectedValues.includes(option.value);
-                });
-            }
-            else {
-                input.value = savedValue;
-            }
+            const handler = restoreHandlers[input.type] || restoreHandlers[input.tagName] || restoreHandlers.default;
+            handler(input, savedValue);
         }
     });
 
@@ -55,5 +56,3 @@ document.addEventListener('DOMContentLoaded', () => {
         Array.from(form.elements).forEach(input => localStorage.removeItem(input.name));
     });
 });
-
-

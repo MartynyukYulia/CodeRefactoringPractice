@@ -4,21 +4,29 @@ class Notification {
     }
 
     createNotification(message, type = "success") {
+        const notification = this.buildNotification(message, type);
+        this.addCloseButton(notification);
+        this.container.appendChild(notification);
+        this.setAutoClose(notification);
+    }
+
+    buildNotification(message, type) {
         const notification = document.createElement("div");
         notification.classList.add("notification", type);
         notification.textContent = message;
+        return notification;
+    }
 
+    addCloseButton(notification) {
         const closeButton = document.createElement("button");
         closeButton.classList.add("close-btn");
         closeButton.innerHTML = "&times;";
-        closeButton.addEventListener("click", (event) => { this.closeNotification(notification) });
+        closeButton.addEventListener("click", () => this.closeNotification(notification));
         notification.appendChild(closeButton);
+    }
 
-        this.container.appendChild(notification);
-
-        setTimeout(() => {
-            this.closeNotification(notification);
-        }, 3000);
+    setAutoClose(notification) {
+        setTimeout(() => this.closeNotification(notification), 3000);
     }
 
     closeNotification(notification) {
@@ -28,6 +36,7 @@ class Notification {
         }, 500);
     }
 }
+
 const notifications = new Notification("notification-container");
 
 document.getElementById("success-btn").onclick = () => notifications.createNotification("Операція успішна!", "success");

@@ -1,0 +1,97 @@
+.slider-container {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+}
+
+.slider-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.slider-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.slider-controls {
+    position: absolute;
+    bottom: 10px;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.slider-controls button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.slider-controls button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.btn-add-slide {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.3s;
+}
+
+.btn-add-slide:hover {
+    background-color: #218838;
+}
+
+.btn-prev {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.btn-prev:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.btn-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.btn-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+input[type="file"] {
+    display: none;
+}

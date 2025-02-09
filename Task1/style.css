@@ -1,0 +1,55 @@
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 60%;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    max-width: 600px;
+    width: 90%;
+    animation: fadeIn 0.5s ease;
+    position: relative;
+    transform: translate(0, 0);
+    border: 2px solid #0c0b29;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #191998;
+    color: white;
+    cursor: grab;
+}
+
+.modal-body {
+    padding: 20px;
+    font-size: 1.1em;
+}
+
+.close-btn {
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.demo-Modal {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -4,54 +4,50 @@ class Slider {
         this.slides = [];
         this.currentSlideIndex = 0;
 
-        this.sliderContainer = document.createElement('div');
-        this.sliderContainer.classList.add('slider-container');
+        this.sliderContainer = this.createElement('div', 'slider-container');
 
-        this.track = document.createElement('div');
-        this.track.classList.add('slider-track');
+        this.track = this.createElement('div', 'slider-track');
         this.track.style.flexDirection = this.orientation === 'vertical' ? 'column' : 'row';
 
-        this.controlPanel = document.createElement('div');
-        this.controlPanel.classList.add('slider-controls');
+        this.controlPanel = this.createElement('div', 'slider-controls');
 
-        this.prevBtn = document.createElement('button');
-        this.prevBtn.classList.add('btn-prev');
-        this.prevBtn.textContent = 'Назад';
-        this.prevBtn.addEventListener('click', () => this.showPreviousSlide());
+        this.prevBtn = this.createButton('Назад', 'btn-prev', () => this.showPreviousSlide());
+        this.nextBtn = this.createButton('Вперед', 'btn-next', () => this.showNextSlide());
+        this.addSlideButton = this.createButton('Додати слайд', 'btn-add-slide', () => this.openFileDialog());
 
-        this.nextBtn = document.createElement('button');
-        this.nextBtn.classList.add('btn-next');
-        this.nextBtn.textContent = 'Вперед';
-        this.nextBtn.addEventListener('click', () => this.showNextSlide());
-
-        this.addSlideButton = document.createElement('button');
-        this.addSlideButton.classList.add('btn-add-slide');
-        this.addSlideButton.textContent = 'Додати слайд';
-        this.addSlideButton.addEventListener('click', () => this.openFileDialog());
-
-        this.fileInput = document.createElement('input');
+        this.fileInput = this.createElement('input');
         this.fileInput.type = 'file';
         this.fileInput.accept = 'image/*';
         this.fileInput.style.display = 'none';
         this.fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
 
-        this.controlPanel.appendChild(this.prevBtn);
-        this.controlPanel.appendChild(this.nextBtn);
-        this.controlPanel.appendChild(this.addSlideButton); // Додаємо кнопку для додавання слайду
-        this.sliderContainer.appendChild(this.track);
-        this.sliderContainer.appendChild(this.controlPanel);
-        this.sliderContainer.appendChild(this.fileInput);
+        this.controlPanel.append(this.prevBtn, this.nextBtn, this.addSlideButton);
+        this.sliderContainer.append(this.track, this.controlPanel, this.fileInput);
 
         this.addSlides();
 
         document.body.appendChild(this.sliderContainer);
     }
 
-    addSlide(imageUrl) {
-        const slide = document.createElement('div');
-        slide.classList.add('slider-slide');
+    createElement(tag, className) {
+        const element = document.createElement(tag);
+        if (className) {
+            element.classList.add(className);
+        }
+        return element;
+    }
 
-        const img = document.createElement('img');
+    createButton(text, className, onClick) {
+        const button = this.createElement('button', className);
+        button.textContent = text;
+        button.addEventListener('click', onClick);
+        return button;
+    }
+
+    addSlide(imageUrl) {
+        const slide = this.createElement('div', 'slider-slide');
+
+        const img = this.createElement('img');
         img.src = imageUrl;
         img.alt = 'Slide';
         slide.appendChild(img);
@@ -61,9 +57,12 @@ class Slider {
     }
 
     addSlides() {
-        this.addSlide('https://static-cse.canva.com/blob/191106/00_verzosa_winterlandscapes_jakob-owens-tb-2640x1485.jpg');
-        this.addSlide('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdSTBuvEGvJRJgPZhgyXUzg-tQDl7GUK5Q0g&s');
-        this.addSlide('https://yaryna.net/img/10-pryjomiv.jpg');
+        const defaultSlides = [
+            'https://static-cse.canva.com/blob/191106/00_verzosa_winterlandscapes_jakob-owens-tb-2640x1485.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdSTBuvEGvJRJgPZhgyXUzg-tQDl7GUK5Q0g&s',
+            'https://yaryna.net/img/10-pryjomiv.jpg'
+        ];
+        defaultSlides.forEach(slide => this.addSlide(slide));
     }
 
     showNextSlide() {
@@ -95,13 +94,12 @@ class Slider {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const imageUrl = e.target.result;
-                this.addSlide(imageUrl); // Додаємо зображення як слайд
+                this.addSlide(imageUrl);
             };
             reader.readAsDataURL(file);
         }
     }
 }
 
-// Створення слайдера
 const sliderHorizontal = new Slider('horizontal');
 const sliderVertical = new Slider('vertical');

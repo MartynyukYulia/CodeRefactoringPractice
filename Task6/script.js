@@ -18,29 +18,40 @@ class NotificationSystem {
         }
     }
 
-    show(message, type = 'info') {
+    createNotification(message, type) {
         const notification = document.createElement('div');
         notification.classList.add('notification', type);
-
         notification.innerHTML = `
             <span class="notification-icon">${this.getIcon(type)}</span>
             <div class="notification-content">${message}</div>
         `;
+        return notification;
+    }
 
-        const container = document.querySelector('.notification-container');
-        container.appendChild(notification);
-
+    addCloseButton(notification) {
         const closeBtn = document.createElement('button');
         closeBtn.classList.add('notification-close');
         closeBtn.innerHTML = '&times;';
         closeBtn.addEventListener('click', () => this.hide(notification));
         notification.appendChild(closeBtn);
+    }
 
+    autoHideNotification(notification, timeout = 5000) {
         setTimeout(() => {
             if (notification.parentElement) {
                 this.hide(notification);
             }
-        }, 5000);
+        }, timeout);
+    }
+
+    show(message, type = 'info') {
+        const notification = this.createNotification(message, type);
+
+        const container = document.querySelector('.notification-container');
+        container.appendChild(notification);
+
+        this.addCloseButton(notification);
+        this.autoHideNotification(notification);
 
         setTimeout(() => {
             notification.classList.add('show');

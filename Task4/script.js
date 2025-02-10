@@ -1,3 +1,22 @@
+const LABELS = {
+    name: 'Ім\'я',
+    email: 'Email',
+    phone: 'Телефон'
+};
+
+const ERROR_MESSAGES = {
+    email: 'Введіть коректний email',
+    phone: 'Введіть коректний номер телефону',
+    text: 'Поле повинно містити мінімум 2 символи'
+};
+
+const REGEX = {
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    phone: /^\+?\d{10,13}$/
+};
+
+const MIN_TEXT_LENGTH = 2;
+
 class Component {
     constructor(container) {
         this.container = container;
@@ -31,11 +50,15 @@ class Form extends Component {
     init() {
         this.form = this.createElement('form');
         this.appendTo(this.container, this.form);
-        this.addField('name', 'Ім\'я', 'text', true);
-        this.addField('email', 'Email', 'email', true);
-        this.addField('phone', 'Телефон', 'tel', true);
+        this.createFields();
         this.addSubmitButton();
         this.setupValidation();
+    }
+
+    createFields() {
+        this.addField('name', LABELS.name, 'text', true);
+        this.addField('email', LABELS.email, 'email', true);
+        this.addField('phone', LABELS.phone, 'tel', true);
     }
 
     addField(name, label, type, required) {
@@ -93,18 +116,16 @@ class Form extends Component {
 
         switch (input.type) {
             case 'email':
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                isValid = emailRegex.test(input.value);
-                errorMessage = 'Введіть коректний email';
+                isValid = REGEX.email.test(input.value);
+                errorMessage = ERROR_MESSAGES.email;
                 break;
             case 'tel':
-                const phoneRegex = /^\+?\d{10,13}$/;
-                isValid = phoneRegex.test(input.value);
-                errorMessage = 'Введіть коректний номер телефону';
+                isValid = REGEX.phone.test(input.value);
+                errorMessage = ERROR_MESSAGES.phone;
                 break;
             case 'text':
-                isValid = input.value.length >= 2;
-                errorMessage = 'Поле повинно містити мінімум 2 символи';
+                isValid = input.value.length >= MIN_TEXT_LENGTH;
+                errorMessage = ERROR_MESSAGES.text;
                 break;
         }
 
@@ -124,6 +145,5 @@ class Form extends Component {
     }
 }
 
-// Ініціалізація форми
 const formContainer = document.getElementById('formContainer');
 new Form(formContainer);
